@@ -292,7 +292,7 @@ export default function Landing() {
             </div>
           </div>
           <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 SafeZone. All rights reserved. Built with emergency response in mind.</p>
+            {/* <p>&copy; 2024 SafeZone. All rights reserved. Built with emergency response in mind.</p> */}
           </div>
         </div>
       </footer>
