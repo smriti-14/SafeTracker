@@ -30,70 +30,70 @@ export class MemStorage implements IStorage {
   }
 
   private initializeSampleZones() {
-    // Sample danger zones
+    // Sample danger zones (Indian locations)
     const dangerZones: InsertZone[] = [
       {
-        name: "Flood Zone - Mission District",
+        name: "Flood Zone - Yamuna River",
         type: "danger",
-        latitude: 37.7599,
-        longitude: -122.4148,
-        radius: 1000,
-        description: "Heavy rainfall causing street flooding",
+        latitude: 28.6139,
+        longitude: 77.2090,
+        radius: 1500,
+        description: "Heavy monsoon rainfall causing river flooding",
         severity: "high",
         isActive: true,
       },
       {
-        name: "Landslide Risk - Twin Peaks",
+        name: "Landslide Risk - Himachal Hills",
         type: "danger",
-        latitude: 37.7544,
-        longitude: -122.4477,
+        latitude: 28.6448,
+        longitude: 77.2167,
         radius: 800,
         description: "Unstable slope due to recent rainfall",
         severity: "medium",
         isActive: true,
       },
       {
-        name: "Earthquake Risk Zone - Financial District",
+        name: "Cyclone Alert - Coastal Area",
         type: "danger",
-        latitude: 37.7946,
-        longitude: -122.4045,
-        radius: 1200,
-        description: "Building damage from recent seismic activity",
+        latitude: 28.5355,
+        longitude: 77.3910,
+        radius: 2000,
+        description: "Severe weather warning issued",
         severity: "high",
         isActive: true,
       },
     ];
 
-    // Sample safe zones
+    // Sample safe zones (Indian locations)
     const safeZones: InsertZone[] = [
       {
-        name: "Community Center - SOMA",
+        name: "Community Center - Central Delhi",
         type: "safe",
-        latitude: 37.7849,
-        longitude: -122.4094,
-        radius: 200,
-        description: "Emergency shelter with supplies",
-        capacity: 200,
-        isActive: true,
-      },
-      {
-        name: "Golden Gate Park",
-        type: "safe",
-        latitude: 37.7694,
-        longitude: -122.4862,
-        radius: 500,
-        description: "Large open space, safe from flooding",
-        capacity: 1000,
-        isActive: true,
-      },
-      {
-        name: "Marina Green",
-        type: "safe",
-        latitude: 37.8053,
-        longitude: -122.4423,
+        latitude: 28.6129,
+        longitude: 77.2295,
         radius: 300,
-        description: "Open area evacuation point",
+        description: "Emergency shelter with medical supplies",
         capacity: 500,
+        isActive: true,
+      },
+      {
+        name: "Raj Ghat Park",
+        type: "safe",
+        latitude: 28.6417,
+        longitude: 77.2486,
+        radius: 600,
+        description: "Large open space, safe from flooding",
+        capacity: 1500,
+        isActive: true,
+      },
+      {
+        name: "India Gate Grounds",
+        type: "safe",
+        latitude: 28.6129,
+        longitude: 77.2295,
+        radius: 400,
+        description: "Open area evacuation point",
+        capacity: 1000,
         isActive: true,
       },
     ];
@@ -103,6 +103,10 @@ export class MemStorage implements IStorage {
       const newZone: Zone = {
         ...zone,
         id: this.currentZoneId++,
+        description: zone.description || null,
+        severity: zone.severity || null,
+        capacity: zone.capacity || null,
+        isActive: zone.isActive ?? true,
         lastUpdated: new Date(),
       };
       this.zones.set(newZone.id, newZone);
@@ -126,6 +130,10 @@ export class MemStorage implements IStorage {
     const zone: Zone = {
       ...insertZone,
       id: this.currentZoneId++,
+      description: insertZone.description || null,
+      severity: insertZone.severity || null,
+      capacity: insertZone.capacity || null,
+      isActive: insertZone.isActive ?? true,
       lastUpdated: new Date(),
     };
     this.zones.set(zone.id, zone);
@@ -153,6 +161,8 @@ export class MemStorage implements IStorage {
     const userLocation: UserLocation = {
       ...location,
       id: this.currentLocationId++,
+      networkType: location.networkType || null,
+      networkSpeed: location.networkSpeed || null,
       timestamp: new Date(),
     };
     this.userLocations.set(location.sessionId, userLocation);

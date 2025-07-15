@@ -1,7 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Shield, MapPin, Wifi, Phone, Route, Share } from "lucide-react";
+import { Shield, MapPin, Wifi, Phone, Route, Share, Navigation } from "lucide-react";
 import InteractiveMap from "./InteractiveMap";
 import ZoneCard from "./ZoneCard";
 import type { UserLocation, NetworkInfo } from "@/pages/application";
@@ -12,23 +11,13 @@ interface DashboardProps {
   userLocation: UserLocation;
   networkInfo: NetworkInfo | null;
   sessionId: string;
+  zones: Zone[];
 }
 
-export default function Dashboard({ userLocation, networkInfo, sessionId }: DashboardProps) {
+export default function Dashboard({ userLocation, networkInfo, sessionId, zones }: DashboardProps) {
   const { toast } = useToast();
-
-  const { data: zones, isLoading, error } = useQuery<Zone[]>({
-    queryKey: ['/api/zones/nearby', userLocation.latitude, userLocation.longitude],
-    queryFn: async () => {
-      const response = await fetch(
-        `/api/zones/nearby?latitude=${userLocation.latitude}&longitude=${userLocation.longitude}&radius=10000`
-      );
-      if (!response.ok) {
-        throw new Error('Failed to fetch zones');
-      }
-      return response.json();
-    },
-  });
+  const isLoading = false;
+  const error = null;
 
   const dangerZones = zones?.filter(zone => zone.type === 'danger') || [];
   const safeZones = zones?.filter(zone => zone.type === 'safe') || [];
@@ -48,7 +37,7 @@ export default function Dashboard({ userLocation, networkInfo, sessionId }: Dash
   const statusBgColor = isInDangerZone ? 'bg-danger' : 'bg-safe';
 
   const handleEmergencyCall = () => {
-    window.open('tel:911', '_self');
+    window.open('tel:100', '_self');
   };
 
   const handleFindSafeRoute = () => {
@@ -94,20 +83,20 @@ export default function Dashboard({ userLocation, networkInfo, sessionId }: Dash
   return (
     <div className="space-y-8">
       {/* Status Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="shadow-lg">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-900">Current Status</h3>
-              <div className={`${statusBgColor} text-white rounded-full p-2`}>
-                <Shield className="text-lg" />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <Card className="shadow-xl border-0 bg-gradient-to-br from-white to-gray-50">
+          <CardContent className="p-8">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-semibold text-gray-900">Current Status</h3>
+              <div className={`${statusBgColor} text-white rounded-2xl p-3 shadow-lg`}>
+                <Shield className="text-xl" />
               </div>
             </div>
             <div className="text-center">
-              <div className={`text-3xl font-bold ${statusColor} mb-2`}>
+              <div className={`text-4xl font-bold ${statusColor} mb-3`}>
                 {currentStatus}
               </div>
-              <p className="text-gray-600">
+              <p className="text-gray-600 text-lg">
                 {isInDangerZone 
                   ? "You are in a danger zone. Please move to safety." 
                   : "Your current location is in a safe zone"
@@ -117,36 +106,36 @@ export default function Dashboard({ userLocation, networkInfo, sessionId }: Dash
           </CardContent>
         </Card>
 
-        <Card className="shadow-lg">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-900">Your Location</h3>
-              <div className="bg-primary text-white rounded-full p-2">
-                <MapPin className="text-lg" />
+        <Card className="shadow-xl border-0 bg-gradient-to-br from-white to-blue-50">
+          <CardContent className="p-8">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-semibold text-gray-900">Your Location</h3>
+              <div className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-2xl p-3 shadow-lg">
+                <MapPin className="text-xl" />
               </div>
             </div>
             <div className="text-center">
-              <div className="text-sm text-gray-600 mb-1">Coordinates</div>
-              <div className="font-mono text-sm">
+              <div className="text-sm text-gray-600 mb-2">Coordinates</div>
+              <div className="font-mono text-lg font-semibold text-gray-900">
                 {userLocation.latitude.toFixed(4)}, {userLocation.longitude.toFixed(4)}
               </div>
-              <div className="text-sm text-gray-500 mt-2">
+              <div className="text-sm text-gray-500 mt-3 bg-gray-100 rounded-full px-3 py-1">
                 Accuracy: ±{userLocation.accuracy.toFixed(0)}m
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="shadow-lg">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-900">Network Info</h3>
-              <div className="bg-accent text-white rounded-full p-2">
-                <Wifi className="text-lg" />
+        <Card className="shadow-xl border-0 bg-gradient-to-br from-white to-purple-50">
+          <CardContent className="p-8">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-semibold text-gray-900">Network Info</h3>
+              <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-2xl p-3 shadow-lg">
+                <Wifi className="text-xl" />
               </div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-accent mb-2">
+              <div className="text-3xl font-bold text-purple-600 mb-3">
                 {networkInfo?.effectiveType || '4G'}
               </div>
               <div className="text-sm text-gray-600">
@@ -158,22 +147,22 @@ export default function Dashboard({ userLocation, networkInfo, sessionId }: Dash
       </div>
 
       {/* Interactive Map */}
-      <Card className="shadow-lg">
-        <CardContent className="p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-semibold text-gray-900">Zone Map</h3>
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center">
-                <div className="w-4 h-4 bg-safe rounded-full mr-2"></div>
-                <span className="text-sm text-gray-600">Safe Zone</span>
+      <Card className="shadow-xl border-0 bg-gradient-to-br from-white to-gray-50">
+        <CardContent className="p-8">
+          <div className="flex items-center justify-between mb-8">
+            <h3 className="text-2xl font-semibold text-gray-900">Interactive Zone Map</h3>
+            <div className="flex items-center space-x-6">
+              <div className="flex items-center bg-green-50 px-3 py-2 rounded-full">
+                <div className="w-4 h-4 bg-green-500 rounded-full mr-2 shadow-sm"></div>
+                <span className="text-sm font-medium text-green-700">Safe Zone</span>
               </div>
-              <div className="flex items-center">
-                <div className="w-4 h-4 bg-warning rounded-full mr-2"></div>
-                <span className="text-sm text-gray-600">Caution Zone</span>
+              <div className="flex items-center bg-yellow-50 px-3 py-2 rounded-full">
+                <div className="w-4 h-4 bg-yellow-500 rounded-full mr-2 shadow-sm"></div>
+                <span className="text-sm font-medium text-yellow-700">Caution Zone</span>
               </div>
-              <div className="flex items-center">
-                <div className="w-4 h-4 bg-danger rounded-full mr-2"></div>
-                <span className="text-sm text-gray-600">Danger Zone</span>
+              <div className="flex items-center bg-red-50 px-3 py-2 rounded-full">
+                <div className="w-4 h-4 bg-red-500 rounded-full mr-2 shadow-sm"></div>
+                <span className="text-sm font-medium text-red-700">Danger Zone</span>
               </div>
             </div>
           </div>
@@ -203,29 +192,29 @@ export default function Dashboard({ userLocation, networkInfo, sessionId }: Dash
       </div>
 
       {/* Emergency Actions */}
-      <Card className="shadow-lg">
-        <CardContent className="p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Emergency Actions</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <Card className="shadow-xl border-0 bg-gradient-to-br from-white to-red-50">
+        <CardContent className="p-8">
+          <h3 className="text-2xl font-semibold text-gray-900 mb-6">Emergency Actions</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Button 
               onClick={handleEmergencyCall}
-              className="bg-danger hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg"
+              className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold py-6 px-8 rounded-xl text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
             >
-              <Phone className="mr-2" size={16} />
-              Call 911
+              <Phone className="mr-3" size={20} />
+              Call 100
             </Button>
             <Button 
               onClick={handleFindSafeRoute}
-              className="bg-warning hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg"
+              className="bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-white font-bold py-6 px-8 rounded-xl text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
             >
-              <Route className="mr-2" size={16} />
+              <Navigation className="mr-3" size={20} />
               Find Safe Route
             </Button>
             <Button 
               onClick={handleShareLocation}
-              className="bg-accent hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg"
+              className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-bold py-6 px-8 rounded-xl text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
             >
-              <Share className="mr-2" size={16} />
+              <Share className="mr-3" size={20} />
               Share Location
             </Button>
           </div>

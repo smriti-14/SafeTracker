@@ -8,6 +8,7 @@ import Dashboard from "@/components/Dashboard";
 import { getCurrentLocation } from "@/lib/geolocation";
 import { getNetworkInfo } from "@/lib/network";
 import { useToast } from "@/hooks/use-toast";
+import type { Zone } from "@shared/schema";
 
 export type ApplicationState = 'permission' | 'loading' | 'dashboard' | 'error';
 
@@ -22,6 +23,62 @@ export interface NetworkInfo {
   downlink: number;
   rtt: number;
 }
+
+// Mock zones data for frontend-only version
+const mockZones: Zone[] = [
+  {
+    id: 1,
+    name: "Flood Zone - Yamuna River",
+    type: "danger",
+    latitude: 28.6139,
+    longitude: 77.2090,
+    radius: 1500,
+    description: "Heavy monsoon rainfall causing river flooding",
+    severity: "high",
+    capacity: null,
+    isActive: true,
+    lastUpdated: new Date(),
+  },
+  {
+    id: 2,
+    name: "Landslide Risk - Himachal Hills",
+    type: "danger",
+    latitude: 28.6448,
+    longitude: 77.2167,
+    radius: 800,
+    description: "Unstable slope due to recent rainfall",
+    severity: "medium",
+    capacity: null,
+    isActive: true,
+    lastUpdated: new Date(),
+  },
+  {
+    id: 3,
+    name: "Community Center - Central Delhi",
+    type: "safe",
+    latitude: 28.6129,
+    longitude: 77.2295,
+    radius: 300,
+    description: "Emergency shelter with medical supplies",
+    severity: null,
+    capacity: 500,
+    isActive: true,
+    lastUpdated: new Date(),
+  },
+  {
+    id: 4,
+    name: "Raj Ghat Park",
+    type: "safe",
+    latitude: 28.6417,
+    longitude: 77.2486,
+    radius: 600,
+    description: "Large open space, safe from flooding",
+    severity: null,
+    capacity: 1500,
+    isActive: true,
+    lastUpdated: new Date(),
+  },
+];
 
 export default function Application() {
   const [, setLocation] = useLocation();
@@ -44,20 +101,8 @@ export default function Application() {
       const location = await getCurrentLocation();
       setUserLocation(location);
       
-      // Save user location to backend
-      await fetch('/api/user-location', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          sessionId,
-          latitude: location.latitude,
-          longitude: location.longitude,
-          networkType: networkInfo?.effectiveType || 'unknown',
-          networkSpeed: networkInfo?.downlink || 0,
-        }),
-      });
+      // Simulate loading time for better UX
+      await new Promise(resolve => setTimeout(resolve, 2000));
       
       setState('dashboard');
     } catch (error) {
@@ -87,6 +132,7 @@ export default function Application() {
             userLocation={userLocation} 
             networkInfo={networkInfo} 
             sessionId={sessionId}
+            zones={mockZones}
           />
         ) : null;
       case 'error':
@@ -122,30 +168,32 @@ export default function Application() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* Application Header */}
-      <header className="bg-white shadow-sm">
+      <header className="bg-white/80 backdrop-blur-lg shadow-lg border-b border-blue-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-between items-center h-20">
             <div className="flex items-center">
-              <Shield className="text-primary text-2xl mr-3" />
-              <h1 className="text-xl font-bold text-gray-900">SafeZone</h1>
+              <div className="bg-gradient-to-r from-cyan-500 to-blue-600 p-3 rounded-xl mr-4">
+                <Shield className="text-white text-2xl" />
+              </div>
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-blue-700 bg-clip-text text-transparent">SafeZone</h1>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-6">
               {/* Network status indicator */}
               {networkInfo && (
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-3 bg-blue-50 px-4 py-2 rounded-full">
                   <span className="text-sm text-gray-600">Network:</span>
-                  <span className="text-sm font-medium text-safe">
+                  <span className="text-sm font-semibold text-blue-600">
                     {networkInfo.effectiveType || '4G'}
                   </span>
-                  <Wifi className="text-safe" size={16} />
+                  <Wifi className="text-blue-500" size={16} />
                 </div>
               )}
               <Button
                 variant="ghost"
                 onClick={handleGoBack}
-                className="text-gray-600 hover:text-primary"
+                className="text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-full px-6"
               >
                 <ArrowLeft className="mr-2" size={16} />
                 Back
