@@ -11,33 +11,33 @@ export default function Landing() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-100 relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400/30 to-purple-400/30 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-purple-400/30 to-pink-400/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-cyan-400/20 to-blue-400/20 rounded-full blur-3xl animate-pulse delay-2000"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-200/40 to-purple-200/40 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-purple-200/40 to-pink-200/40 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-cyan-200/30 to-blue-200/30 rounded-full blur-3xl animate-pulse delay-2000"></div>
       </div>
       {/* Navigation */}
-      <nav className="bg-white/5 backdrop-blur-lg sticky top-0 z-50 border-b border-white/10">
+      <nav className="bg-white/70 backdrop-blur-lg sticky top-0 z-50 border-b border-blue-200/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center">
-              <div className="bg-gradient-to-r from-cyan-400 to-blue-500 p-2 rounded-xl mr-3">
+              <div className="bg-gradient-to-r from-blue-400 to-purple-500 p-2 rounded-xl mr-3">
                 <Shield className="text-white text-2xl" />
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+              <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 SafeZone
               </span>
             </div>
             <div className="hidden md:flex items-center space-x-8">
-              <a href="#features" className="text-white/80 hover:text-white px-4 py-2 text-sm font-medium transition-all hover:bg-white/10 rounded-lg">
+              <a href="#features" className="text-gray-700 hover:text-blue-600 px-4 py-2 text-sm font-medium transition-all hover:bg-blue-50 rounded-lg">
                 Features
               </a>
-              <a href="#about" className="text-white/80 hover:text-white px-4 py-2 text-sm font-medium transition-all hover:bg-white/10 rounded-lg">
+              <a href="#about" className="text-gray-700 hover:text-blue-600 px-4 py-2 text-sm font-medium transition-all hover:bg-blue-50 rounded-lg">
                 About
               </a>
-              <a href="#contact" className="text-white/80 hover:text-white px-4 py-2 text-sm font-medium transition-all hover:bg-white/10 rounded-lg">
+              <a href="#contact" className="text-gray-700 hover:text-blue-600 px-4 py-2 text-sm font-medium transition-all hover:bg-blue-50 rounded-lg">
                 Contact
               </a>
             </div>
@@ -47,56 +47,56 @@ export default function Landing() {
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center">
-        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="absolute inset-0 bg-white/10"></div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="max-w-5xl mx-auto">
             {/* Floating Badge */}
-            <div className="inline-flex items-center bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-6 py-3 mb-8 fade-in">
-              <Star className="text-yellow-400 mr-2" size={20} />
-              <span className="text-white text-sm font-medium">India's Most Advanced Emergency System</span>
+            <div className="inline-flex items-center bg-blue-100/80 backdrop-blur-sm border border-blue-200/50 rounded-full px-6 py-3 mb-8 fade-in">
+              <Star className="text-blue-600 mr-2" size={20} />
+              <span className="text-blue-800 text-sm font-medium">India's Most Advanced Emergency System</span>
             </div>
             
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight fade-in">
+            <h1 className="text-5xl md:text-7xl font-bold text-gray-800 mb-8 leading-tight fade-in">
               Stay Safe with <br />
-              <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
                 Real-Time Zone Detection
               </span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-blue-100 mb-12 max-w-4xl mx-auto fade-in leading-relaxed">
+            <p className="text-xl md:text-2xl text-gray-700 mb-12 max-w-4xl mx-auto fade-in leading-relaxed">
               Advanced emergency zone detection using cutting-edge Canvas API, Geolocation API, and Network Information API to identify danger zones and safe areas near you during disasters.
             </p>
             
             {/* Feature highlights */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-              <Card className="bg-white/5 backdrop-blur-lg border border-white/10 hover:bg-white/10 transition-all duration-300 transform hover:scale-105 slide-in">
+              <Card className="bg-white/80 backdrop-blur-lg border border-blue-200/50 hover:bg-white/90 transition-all duration-300 transform hover:scale-105 slide-in shadow-lg">
                 <CardContent className="p-8 text-center">
-                  <div className="bg-gradient-to-r from-cyan-400 to-blue-500 p-4 rounded-2xl w-fit mx-auto mb-6">
+                  <div className="bg-gradient-to-r from-blue-400 to-cyan-500 p-4 rounded-2xl w-fit mx-auto mb-6">
                     <MapPin className="text-white text-3xl" />
                   </div>
-                  <h3 className="text-white font-semibold text-xl mb-3">Canvas Mapping</h3>
-                  <p className="text-blue-100 text-sm">Interactive canvas-based maps with live danger zone visualization</p>
+                  <h3 className="text-gray-800 font-semibold text-xl mb-3">Canvas Mapping</h3>
+                  <p className="text-gray-600 text-sm">Interactive canvas-based maps with live danger zone visualization</p>
                 </CardContent>
               </Card>
               
-              <Card className="bg-white/5 backdrop-blur-lg border border-white/10 hover:bg-white/10 transition-all duration-300 transform hover:scale-105 slide-in">
+              <Card className="bg-white/80 backdrop-blur-lg border border-purple-200/50 hover:bg-white/90 transition-all duration-300 transform hover:scale-105 slide-in shadow-lg">
                 <CardContent className="p-8 text-center">
                   <div className="bg-gradient-to-r from-purple-400 to-pink-500 p-4 rounded-2xl w-fit mx-auto mb-6">
                     <Signal className="text-white text-3xl" />
                   </div>
-                  <h3 className="text-white font-semibold text-xl mb-3">Network Adaptive</h3>
-                  <p className="text-blue-100 text-sm">Optimized experience based on your network connection quality</p>
+                  <h3 className="text-gray-800 font-semibold text-xl mb-3">Network Adaptive</h3>
+                  <p className="text-gray-600 text-sm">Optimized experience based on your network connection quality</p>
                 </CardContent>
               </Card>
               
-              <Card className="bg-white/5 backdrop-blur-lg border border-white/10 hover:bg-white/10 transition-all duration-300 transform hover:scale-105 slide-in">
+              <Card className="bg-white/80 backdrop-blur-lg border border-orange-200/50 hover:bg-white/90 transition-all duration-300 transform hover:scale-105 slide-in shadow-lg">
                 <CardContent className="p-8 text-center">
-                  <div className="bg-gradient-to-r from-yellow-400 to-orange-500 p-4 rounded-2xl w-fit mx-auto mb-6">
+                  <div className="bg-gradient-to-r from-orange-400 to-yellow-500 p-4 rounded-2xl w-fit mx-auto mb-6">
                     <AlertTriangle className="text-white text-3xl" />
                   </div>
-                  <h3 className="text-white font-semibold text-xl mb-3">Instant Alerts</h3>
-                  <p className="text-blue-100 text-sm">Real-time emergency notifications for your safety</p>
+                  <h3 className="text-gray-800 font-semibold text-xl mb-3">Instant Alerts</h3>
+                  <p className="text-gray-600 text-sm">Real-time emergency notifications for your safety</p>
                 </CardContent>
               </Card>
             </div>
@@ -104,17 +104,17 @@ export default function Landing() {
             <div className="relative">
               <Button 
                 onClick={handleGetStarted}
-                className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-6 px-12 rounded-full text-xl transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-cyan-500/25 border border-cyan-400/50"
+                className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-6 px-12 rounded-full text-xl transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-blue-500/25 border border-blue-400/50"
               >
                 <Navigation className="mr-3" size={24} />
                 Get My Location & Start
               </Button>
               
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full blur opacity-20 animate-pulse"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full blur opacity-20 animate-pulse"></div>
             </div>
             
             {/* Trust indicators */}
-            <div className="mt-12 flex justify-center items-center space-x-8 text-white/60">
+            <div className="mt-12 flex justify-center items-center space-x-8 text-gray-600">
               <div className="flex items-center">
                 <Eye className="mr-2" size={16} />
                 <span className="text-sm">Live Tracking</span>
