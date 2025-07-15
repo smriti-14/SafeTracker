@@ -7,7 +7,6 @@ export default function Landing() {
   const [, setLocation] = useLocation();
 
   const handleGetStarted = () => {
-    console.log("Button clicked, navigating to /app");
     setLocation("/app");
   };
 
@@ -273,8 +272,8 @@ export default function Landing() {
       {/* Footer */}
       <footer className="bg-gray-800 text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="col-span-1 md:col-span-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="col-span-1 md:col-span-1">
               <div className="flex items-center mb-4">
                 <Shield className="text-primary text-2xl mr-3" />
                 <span className="text-xl font-bold">SafeZone</span>
@@ -284,23 +283,11 @@ export default function Landing() {
               </p>
             </div>
             <div>
-              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#features" className="hover:text-white transition-colors">Features</a></li>
-                <li><a href="#about" className="hover:text-white transition-colors">About</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
-              </ul>
-            </div>
-            <div>
               <h4 className="text-lg font-semibold mb-4">Emergency</h4>
               <ul className="space-y-2 text-gray-400">
                 <li><a href="tel:100" className="hover:text-white transition-colors">Call 100 (Police)</a></li>
                 <li><a href="tel:101" className="hover:text-white transition-colors">Call 101 (Fire)</a></li>
                 <li><a href="tel:102" className="hover:text-white transition-colors">Call 102 (Ambulance)</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Emergency Guide</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Disaster Resources</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Safety Tips</a></li>
               </ul>
             </div>
           </div>
