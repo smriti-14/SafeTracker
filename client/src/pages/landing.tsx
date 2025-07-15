@@ -7,6 +7,7 @@ export default function Landing() {
   const [, setLocation] = useLocation();
 
   const handleGetStarted = () => {
+    console.log("Button clicked, navigating to /app");
     setLocation("/app");
   };
 
