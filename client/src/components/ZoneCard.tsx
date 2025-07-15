@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { AlertTriangle, Shield, Clock, Users, MapPin } from "lucide-react";
 import type { Zone } from "@shared/schema";
 import type { UserLocation } from "@/pages/application";
+import { date } from "drizzle-orm/mysql-core";
 
 interface ZoneCardProps {
   title: string;
@@ -87,7 +88,8 @@ export default function ZoneCard({ title, zones, userLocation, type }: ZoneCardP
                   <div className="flex items-center justify-between text-sm text-gray-500">
                     <div className="flex items-center">
                       <Clock className="mr-1" size={12} />
-                      <span>Updated {getTimeAgo(new Date(zone.lastUpdated))}</span>
+                      <span>Updated {getTimeAgo(new Date(zone?.lastUpdated || ""))}</span>
+
                     </div>
                     {type === 'safe' && zone.capacity && (
                       <div className="flex items-center">
